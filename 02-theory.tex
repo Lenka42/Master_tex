@@ -1,0 +1,45 @@
+\chapter{Tight Binding method}
+\label{ch:theory}
+\section{Introduction to the tight-binding model}
+Tight-binding method is developed to describe band structure of various materials, where electrons are localized at the atomic positions (tight-bonded to the atoms). In TB model simple effective hamiltonian is used in contrast to first-principle calculations. 
+
+The most essential approximation in TB model is the so-called two-center approximation, where Hamiltonian is approximated by the atomic Hamiltonian centered on the atomic positions in the unit cell $\vec{R}$ and only two-centered integrals are encountered.
+
+We construct the Bloch wave function of the crystal as a linear combination of the local Wannier functions, which are approximated by the eigenfunctions of the atomic Hamiltonian, the atomic orbitals $\phi_{\nu, s}(\vec{r} - \vec{t_i} - \vec{R})$, where $\vec{t_j}$ is the position of atom $i$ in the unit cell at $\vec{R}$ and $s$ is the spin of $\nu$th orbital. The Bloch wave function
+\begin{equation} \label{eq:wave_fun}
+\Psi_{\vec{k}, j ,\nu, s} = \frac{1}{\sqrt{N}} \sum_{\vec{R}} \me^{i\vec{k}\vec{R}} \phi_{\nu, s} (\vec{r} - \vec{t_j} - \vec{R})
+\end{equation}
+satisfies Bloch theorem.
+
+Starting with Schr\"{o}dinger equation,
+\begin{equation}
+\hat{H}\Psi_{\vec{k}}(\vec{r}) = \epsilon_{\vec{k}} \Psi_{\vec{k}}(\vec{r})
+\end{equation}
+and expanding crystal wave function in the basis of the on-site Bloch wave functions
+\begin{equation}
+\Psi_{\vec{k}}(\vec{r}) = \sum_j c_{\vec{k}, j} \Psi_{\vec{k}, j}(\vec{r})
+\end{equation}
+basing on variational principle one can derive the secular equation,
+\begin{equation} \label{eq:secular}
+\sum_j[H_{i,j}(\vec{k}) - \epsilon_{\vec{k}} S_{i, j}(\vec{k})] c_{\vec{k}, j} = 0.
+\end{equation}
+Where two-center Hamiltonian and overlap matrix elements are defined by the integrals:
+\begin{equation} \label{eq:h_matrix}
+H_{i,j}(\vec{k}) = \frac{1}{N} \sum_{\vec{R}, \vec{R'}} \int d \vec{r} \phi_i^*(\vec{r} - \vec{R'}) \hat{H}(\vec{r} - \vec{R}) \phi_j(\vec{r} - \vec{R}),
+\end{equation}
+\begin{equation} \label{eq:s_matrix}
+S_{i,j}(\vec{k}) = \frac{1}{N} \sum_{\vec{R}, \vec{R'}} \int d \vec{r} \phi_i^*(\vec{r} - \vec{R'}) \phi_j(\vec{r} - \vec{R}).
+\end{equation}
+
+Usually integration results are taken as parameters, which have to be fitted to reproduce certain solid's properties or the band structure calculated by first-principle approach. Matrix Elements in \ref{eq:h_matrix} and \ref{eq:s_matrix} where $\vec{R} = \vec{R'}$ are called on-site elements, and for $\vec{R} \neq \vec{R'}$ they are called hopping and overlap parameters respectively. 
+
+In general case, atomic orbitals centered on different sites are not orthogonal and the corresponding overlap parameters have small but finite values.But often orthogonal basis of orbitals is used, so that overlap matrix becomes identity matrix and energies are eigenvalues of the Hamiltonian matrix. In the following sections I will discuss both approaches. 
+
+The next approximation is to consider a finite as small as necessary number of orbitals per atom. The number of solutions of the secular equation in \ref{eq:secular} is equal to dimension of the Hamiltonian matrix,
+\begin{equation}
+dim = g \times \sum_j n_j
+\end{equation}
+Here $g$ is spin factor ($1$ or $2$), summation goes through all atoms in unit cell and $n_j$ is number of included orbitals for atom $j$.
+
+In the final nearest neighbors approximation (NNA) only the nearest neighbors of a chosen atom are taken into account in the Hamiltonian and overlap matrix elements Eqs. (\ref{eq:h_matrix}) and (\ref{eq:s_matrix}).
+\section{Spin-orbit interaction }
