@@ -3,32 +3,49 @@
 \section{Introduction to the tight-binding model}
 Tight-binding method is developed to describe band structure of various materials, where electrons are localized at the atomic positions (tight-bonded to the atoms). In TB model simple effective hamiltonian is used in contrast to first-principle calculations. 
 
+Hear I provide short sketch of secular equation derivation.
+
 The most essential approximation in TB model is the so-called two-center approximation, where Hamiltonian is approximated by the atomic Hamiltonian centered on the atomic positions in the unit cell $\vec{R}$ and only two-centered integrals are encountered.
 
-We construct the Bloch wave function of the crystal as a linear combination of the local Wannier functions, which are approximated by the eigenfunctions of the atomic Hamiltonian, the atomic orbitals $\phi_{\nu, s}(\vec{r} - \vec{t_i} - \vec{R})$, where $\vec{t_j}$ is the position of atom $i$ in the unit cell at $\vec{R}$ and $s$ is the spin of $\nu$th orbital. The Bloch wave function
-\begin{equation} \label{eq:wave_fun}
-\Psi_{\vec{k}, j ,\nu, s} = \frac{1}{\sqrt{N}} \sum_{\vec{R}} \me^{i\vec{k}\vec{R}} \phi_{\nu, s} (\vec{r} - \vec{t_j} - \vec{R})
+Crystalline solids have translational symmetry along the directions of lattice vactors $a_i$. In further chapters I investigate both regular bulk materials, which have translational symmetry in three dimensions and nanomaterials, which have reduced symmetry. Translational symmetry enforces Bloch's thorem to be satisfied by solids' wave functions:
+\begin{equation} \label{eq:blochs_theorem}
+	\hat{T}_i \psi(\vec{k},\vec{r}) = \me^{i \vec{k} \cdot \vec{a_i}} \psi(\vec{k}\vec{r}),
 \end{equation}
-satisfies Bloch theorem.
+where $\hat{T}_i$ is the translational operator along the lattice vector $\vec{a_i}$ and $\vec{k}$ is the Bloch wave vector \cite{kittel}.
 
-Starting with Schr\"{o}dinger equation,
+We construct the Bloch wave function of the crystal as a linear combination of the local Wannier functions, which are approximated by the eigenfunctions of the atomic Hamiltonian, the atomic orbitals $\phi_{nlm, s}(\vec{r} - \vec{t_i} - \vec{R_j})$, where $\vec{t_i}$ is the position of atom $i$ in the unit cell at cite $\vec{R_j}$, $s$ is the spin and $n$, $l$, $m$ are the principal, angular-momentum and magnetic quantum numbers, respectively. The Bloch wave function looks as follows:
+\begin{equation} \label{eq:wave_fun}
+	\psi_{j}(\vec{k},\vec{r}) = \frac{1}{\sqrt{N}} \sum_{\vec{t_i}, nlms} \me^{i\vec{k}(\vec{R_j} + \vec{t_i})} \phi_{nlm, s} (\vec{r} - \vec{t_i} - \vec{R_j}),
+\end{equation}
+where N is the number of atomic wave functions in the unit cell. It's easy to see that constructed in such a way wave function satisfies Bloch's theorem (eq. \ref{eq:blochs_theorem}).
+
+Hamiltonian's eigenfunctions $\Psi_j(\vec{k}, \vec{r})$ are defined as a linear combination of Bloch functions:
+\begin{equation} \label{eq:wave_function_expansion}
+	\Psi_j(\vec{k}, \vec{r}) = \sum_{j'=1}^{n} C_{jj'}(\vec{k}) \psi_j(\vec{k}, \vec{r})
+\end{equation}
+
+Energies of the system characterized by Hamiltonian $\hat{H}$ are given by
 \begin{equation}
-\hat{H}\Psi_{\vec{k}}(\vec{r}) = \epsilon_{\vec{k}} \Psi_{\vec{k}}(\vec{r})
+	E_i(\vec{k}) = \frac{\langle \Psi_i | \hat{H} | \Psi_i \rangle}{\langle \Psi_i | \Psi_i \rangle} = \frac{\int \Psi^*_j(\vec{k}, \vec{r}) \hat{H} \Psi_j(\vec{k}, \vec{r}) dr}{\int \Psi^*_j(\vec{k}, \vec{r}) \Psi_j(\vec{k}, \vec{r}) dr}
 \end{equation}
-and expanding crystal wave function in the basis of the on-site Bloch wave functions
+Expantion of $\Psi_j(\vec{k}, \vec{r})$ according to eq. \ref{eq:wave_function_expansion} leads to
 \begin{equation}
-\Psi_{\vec{k}}(\vec{r}) = \sum_j c_{\vec{k}, j} \Psi_{\vec{k}, j}(\vec{r})
+	E_i(\vec{k}) = \frac{\sum\limits_{j,j'=1}^{n} C^*_{ij} C_{ij'} \langle \psi_j | \hat{H} | \psi_{j'} \rangle}{\sum\limits_{j,j'=1}^{n} C^*_{ij} C_{ij'} \langle \psi_j | \psi_{j'} \rangle} = \frac{\sum\limits_{j,j'=1}^{n} H_{jj'}(\vec{k}) C^*_{ij} C_{ij'}}{\sum\limits_{j,j'=1}^{n} S_{jj'} C^*_{ij} C_{ij'}},
+\end{equation} 
+where $H_{jj'}(\vec{k})$ and $S_{jj'}(\vec{k})$ are hamiltonian (transfer) and overlap matrices elements, respectively, and are defined by
+\begin{equation}
+	H_{jj'}(\vec{k}) = \langle \psi_j | \hat{H} | \psi_{j'} \rangle
 \end{equation}
-basing on variational principle one can derive the secular equation,
-\begin{equation} \label{eq:secular}
-\sum_j[H_{i,j}(\vec{k}) - \epsilon_{\vec{k}} S_{i, j}(\vec{k})] c_{\vec{k}, j} = 0.
+\begin{equation}
+	S_{jj'}(\vec{k}) = \langle \psi_j | \psi_{j'} \rangle
 \end{equation}
-Where two-center Hamiltonian and overlap matrix elements are defined by the integrals:
-\begin{equation} \label{eq:h_matrix}
-H_{i,j}(\vec{k}) = \frac{1}{N} \sum_{\vec{R}, \vec{R'}} \int d \vec{r} \phi_i^*(\vec{r} - \vec{R'}) \hat{H}(\vec{r} - \vec{R}) \phi_j(\vec{r} - \vec{R}),
+For a given $\vec{k}$ value, coefficient $C^*_{ij}(\vec{k})$ is optimized to minimize $E_i(\vec{k})$:
+\begin{equation}
+	\frac{\partial E_i (\vec{k})}{\partial C^*_{ij}(\vec{k})} = \frac{\sum\limits_{j'=1}^{n} H_{jj'}(\vec{k}) C_{ij'}(\vec{k})}{\sum\limits_{j,j'=1}^{n} S_{jj'} C^*_{ij} C_{ij'}} - \frac{\sum\limits_{j,j'=1}^{n} H_{jj'} C^*_{ij} C_{ij'}}{[\sum\limits_{j,j'=1}^{n} S_{jj'} C^*_{ij} C_{ij'}]^2} \sum\limits_{j'=1}^{n} S_{jj'}(\vec{k}) C_{ij'}(\vec{k}) = 0.
 \end{equation}
-\begin{equation} \label{eq:s_matrix}
-S_{i,j}(\vec{k}) = \frac{1}{N} \sum_{\vec{R}, \vec{R'}} \int d \vec{r} \phi_i^*(\vec{r} - \vec{R'}) \phi_j(\vec{r} - \vec{R}).
+This can be simplified as 
+\begin{equation}
+	\sum_{j'=1}^{n} H_{jj'}(\vec{k}) C_{ij'}(\vec{k}) - E_i(\vec{k}) \sum_{j'=1}^{n} S_{jj'}(\vec{k}) C_{ij'}(\vec{k}) = 0
 \end{equation}
 
 Usually integration results are taken as parameters, which have to be fitted to reproduce certain solid's properties or the band structure calculated by first-principle approach. Matrix Elements in \ref{eq:h_matrix} and \ref{eq:s_matrix} where $\vec{R} = \vec{R'}$ are called on-site elements, and for $\vec{R} \neq \vec{R'}$ they are called hopping and overlap parameters respectively. 
