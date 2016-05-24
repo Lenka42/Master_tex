@@ -1,19 +1,19 @@
 \chapter{Tight Binding method}
 \label{ch:theory}
 \section{Introduction to the tight-binding model} \label{sec:TB_theory}
-Tight-binding method is developed to describe band structure of various materials, where electrons are localized at the atomic positions (tight-bonded to the atoms). In TB model simple effective hamiltonian is used in contrast to first-principle calculations. 
+Tight-binding method is developed to describe band structure of various materials, where electrons are localized at the atomic positions (tight-bonded to the atoms). In TB model simple effective Hamiltonian is used in contrast to first-principle calculations. 
 
 Hear I provide short sketch of secular equation derivation.
 
 The most essential approximation in TB model is the so-called two-center approximation, where Hamiltonian is approximated by the atomic Hamiltonian centered on the atomic positions in the unit cell $\vec{R}$ and only two-centered integrals are encountered.
 
-Crystalline solids have translational symmetry along the directions of lattice vactors $a_i$. In further chapters I investigate both regular bulk materials, which have translational symmetry in three dimensions and nanomaterials, which have reduced symmetry. Translational symmetry enforces Bloch's thorem to be satisfied by solids' wave functions:
+Crystalline solids have translational symmetry along the directions of lattice vectors $a_i$. In further chapters I investigate both regular bulk materials, which have translational symmetry in three dimensions and nanomaterials, which have reduced symmetry. Translational symmetry enforces Bloch's theorem to be satisfied by solids' wave functions:
 \begin{equation} \label{eq:blochs_theorem}
 	\hat{T}_i \psi(\vec{k},\vec{r}) = \me^{i \vec{k} \cdot \vec{a_i}} \psi(\vec{k}\vec{r}),
 \end{equation}
 where $\hat{T}_i$ is the translational operator along the lattice vector $\vec{a_i}$ and $\vec{k}$ is the Bloch wave vector \cite{kittel}.
 
-We construct the Bloch wave function of the crystal as a linear combination of the local Wannier functions, which are approximated by the eigenfunctions of the atomic Hamiltonian, the atomic orbitals $\phi_{i}(\vec{r} - \vec{t_i} - \vec{R_j})$, where $\vec{t_i}$ is the position of atom in the unit cell at cite $\vec{R_j}$, $i$ is a set of quantum numbers identifing the type of orbital: $n$, $l$, $m$ -- the principal, angular-momentum and magnetic quantum numbers, respectively and $s$ -- spin. The Bloch wave function looks as follows:
+We construct the Bloch wave function of the crystal as a linear combination of the local Wannier functions, which are approximated by the eigenfunctions of the atomic Hamiltonian, the atomic orbitals $\phi_{i}(\vec{r} - \vec{t_i} - \vec{R_j})$, where $\vec{t_i}$ is the position of atom in the unit cell at cite $\vec{R_j}$, $i$ is a set of quantum numbers identifying the type of orbital: $n$, $l$, $m$ -- the principal, angular-momentum and magnetic quantum numbers, respectively and $s$ -- spin. The Bloch wave function looks as follows:
 \begin{equation} \label{eq:wave_fun}
 	\psi_{j}(\vec{k},\vec{r}) = \frac{1}{\sqrt{N}} \sum_{\vec{R_j}} \me^{i\vec{k}(\vec{R_j} + \vec{t_i})} \phi_{i} (\vec{r} - \vec{t_i} - \vec{R_j}),
 \end{equation}
@@ -32,7 +32,7 @@ Expantion of $\Psi_j(\vec{k}, \vec{r})$ according to eq. \ref{eq:wave_function_e
 \begin{equation}
 	E_i(\vec{k}) = \frac{\sum\limits_{j,j'=1}^{n} C^*_{ij} C_{ij'} \langle \psi_j | \hat{H} | \psi_{j'} \rangle}{\sum\limits_{j,j'=1}^{n} C^*_{ij} C_{ij'} \langle \psi_j | \psi_{j'} \rangle} = \frac{\sum\limits_{j,j'=1}^{n} H_{jj'}(\vec{k}) C^*_{ij} C_{ij'}}{\sum\limits_{j,j'=1}^{n} S_{jj'} C^*_{ij} C_{ij'}},
 \end{equation} 
-where $H_{jj'}(\vec{k})$ and $S_{jj'}(\vec{k})$ are hamiltonian (transfer) and overlap matrices elements, respectively, and are defined by
+where $H_{jj'}(\vec{k})$ and $S_{jj'}(\vec{k})$ are Hamiltonian (transfer) and overlap matrices elements, respectively, and are defined by
 \begin{equation} \label{eq:h_matrix}
 	H_{jj'}(\vec{k}) = \langle \psi_j | \hat{H} | \psi_{j'} \rangle
 \end{equation}
@@ -62,7 +62,7 @@ dim = g \times \sum_j n_j
 \end{equation}
 Here $g$ is spin factor ($1$ or $2$), summation goes through all atoms in unit cell and $n_j$ is number of included orbitals for atom $j$.
 
-In the final nearest neighbors approximation (NNA) only the nearest neighbors of a chosen atom are taken into account in the Hamiltonian and overlap matrix elements Eqs. (\ref{eq:h_matrix}) and (\ref{eq:s_matrix}).
+In the final nearest neighbors approximation (NNA) only the nearest neighbors of a chosen atom are taken into account in the Hamiltonian and overlap matrix elements eqs. (\ref{eq:h_matrix}) and (\ref{eq:s_matrix}).
 \section{Vanishing and Non-vanishing Orbital Interactions Based on TB model}
 To solve the eigenvalue problem (eq. \ref{eq:secular}) one needs to calculate Hamiltonian and overlap matrices elements between atomic orbitals at different locations. In this work I use so-called rotating atomic orbitals $\phi_{lm}$ which are characterized by the angular momentum $l = {s, p, d, ...}$ and the magnetic quantum number $m$. Due to the spherical symmetry of the atomic potential the orbital function may be separated in the radial part and angular part:
 \begin{equation}
@@ -99,9 +99,9 @@ For arbitrary vector $\vec{R} - \vec{R'} $ the hopping $\langle l', m', \vec{R'}
 \end{figure}
 \footnotetext{http://sina.sharif.edu/~khorasani/Publications/Graphene.pdf}
 
-To reduce the number of the corresponding hopping and overlap parameters one can exploit the symmetries of the atomic orbitals. For example, in case bonding including $s$ and $p$ orbitals, there are only four non-zero overlapping integrals, as shown schematically on fig. \ref{fig:sp}. The remaining cases like those shown on fig. \ref{fig:sp_vanishing} correspond to the matrix elements which vanish because of symmetry constraints. In general the $p$ orbitals are notjust parallel or lie on the line that joins the atomic positions. We can always project each $p$ orbital into two components, one of them along the bonding line, the other one perpendicular to it. 
+To reduce the number of the corresponding hopping and overlap parameters one can exploit the symmetries of the atomic orbitals. For example, in case bonding including $s$ and $p$ orbitals, there are only four non-zero overlapping integrals, as shown schematically on fig. \ref{fig:sp}. The remaining cases like those shown on fig. \ref{fig:sp_vanishing} correspond to the matrix elements which vanish because of symmetry constraints. In general the $p$ orbitals are not just parallel or lie on the line that joins the atomic positions. We can always project each $p$ orbital into two components, one of them along the bonding line, the other one perpendicular to it. 
 
-The general form of hopping integrals withing the $s$, $p$ and $d$ orbitals is presented in table \ref{tab:hopping_integrals}. In this table $n_x$, $n_y$ and $n_z$ are cartesian components of unit vector, connecting two orbitals:
+The general form of hopping integrals withing the $s$, $p$ and $d$ orbitals is presented in table \ref{tab:hopping_integrals}. In this table $n_x$, $n_y$ and $n_z$ are Cartesian components of unit vector, connecting two orbitals:
 \begin{equation}
 	\vec{n} = \frac{\vec{R} - \vec{R'}}{|\vec{R} - \vec{R'}|},
 \end{equation}
@@ -146,7 +146,7 @@ $\langle d_{z^2} | \hat{H} | d_z^2 \rangle $ & $\frac{3}{4} (n_x^2 + n_y^2)^2 V_
 \hline
 \end{tabularht}
 \end{center}
-\caption{The hopping integral within the directed orbitals with the maximum angular momentum $l = 2$. Here I use the indices $i = {x, y, z}$, $j = {x, y, z}$, $k = {x, y, z}$ with the rule $i = j = k$. The complex conjugated hopping integrals are given by $\langle l | \hat{H} | l' \rangle = (-1)^{l+l'} \langle l' | \hat{H} | l \rangle$.}
+\caption{The hopping integral within the directed orbitals with the maximum angular momentum $l = 2$. Here I use the indexes $i = {x, y, z}$, $j = {x, y, z}$, $k = {x, y, z}$ with the rule $i = j = k$. The complex conjugated hopping integrals are given by $\langle l | \hat{H} | l' \rangle = (-1)^{l+l'} \langle l' | \hat{H} | l \rangle$.}
 \label{tab:hopping_integrals}
 \end{table}
 
@@ -175,7 +175,7 @@ Ladder angular momentum operators act on atomic orbital wave functions as follow
 \begin{equation}
 	\hat{L}_{\pm} |l, m \rangle = \sqrt{l(l+1) - m (m \pm 1)} |l, m \pm 1 \rangle, \qquad \hat{L}_z |l, m \rangle = m |l, m \rangle
 \end{equation}
-Finally using the othogonality of atomic orbitals we obtain a set of non-zero on-site expectation values of the SOC Hamiltonian:
+Finally using the orthogonality of atomic orbitals we obtain a set of non-zero on-site expectation values of the SOC Hamiltonian:
 \begin{equation}
  	\langle l,m, \vec{R} | \hat{H^{SO}} | l', m', \vec{R} \rangle = \xi_l \delta_{l,l'} \langle l, m | \vec{L} \cdot \vec{S} | l', m' \rangle,
 \end{equation} 
@@ -183,8 +183,7 @@ where the strength of the atomic SOC $\xi_l$ (frequently denoted also as $\lambd
 \begin{equation}
 	\xi_l = \int\limits^\infty_0 dr R^2_l(r) \xi(r)
 \end{equation}
-must be fitted to reproduce the SOC effects in the band structure obtained by the first principal calcu-
-lations or experimntal data.The on-site matrix elements of the dimensionless part of the SOC Hamiltonian $\vec{L} \cot \vec{S} $ in the bases of the rotating orbitals are placed in the tabel \ref{tab:soc1} and in the basis of directed orbitals (which will be used further in this work) -- in tabel \ref{tab:soc2}.
+must be fitted to reproduce the SOC effects in the band structure obtained by the first principal calculations or experimental data.The on-site matrix elements of the dimensionless part of the SOC Hamiltonian $\vec{L} \cot \vec{S} $ in the bases of the rotating orbitals are placed in the table \ref{tab:soc1} and in the basis of directed orbitals (which will be used further in this work) -- in table \ref{tab:soc2}.
 
 \begin{table}[h!]
 \begin{tabularx}{\textwidth}{|r| X X X X|}
