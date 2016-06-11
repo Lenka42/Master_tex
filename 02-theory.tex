@@ -80,22 +80,22 @@ The hopping and overlap integrals between those atomic orbitals, which are local
 	S_{ll'|m|} \delta_{mm'}\langle l', m', \vec{R'} | l, m , \vec{R} \rangle
 \end{equation}
 are called Slater-Koster (SK) parameters \cite{slatter}. If the relative vector $\vec{R}-\vec{R'}$ is parallel to the quantization axes of the orbitals $\phi_{l,m}(\vec{r} - \vec{R}) = \langle \vec{r} | l, m, \vec{R} \rangle$. The SK parameters are diagonal in the magnetic number $m$. Each value of $m$ is related to the different kind of bonding given by the superpositions the atomic orbital wave functions. The different bonding types are denoted by the Greek letters $\sigma$, $\pi$, $\delta$, which correspond to the magnetic numbers $m = {0, 1, 2}$, respectively, and are related to the homonymous molecular orbitals, which are shown schematically in \ref{fig:orbitals}. 
-\begin{figure}[hb]  \label{fig:orbitals}
+\begin{figure}[hb]
   \includegraphics[width=\linewidth]{img/orbitals}
-  \caption[caption]{Sketch of SK hopping parameters $V_{sp\sigma}$, $V_{pd\pi}$ and $V_{dd\delta}$ that represent different kinds of bonding $\sigma$, $\pi$ and $\delta$, respectively, shown by the tunnels between the two orbital states\footnotemark}
+  \caption[caption]{Sketch of SK hopping parameters $V_{sp\sigma}$, $V_{pd\pi}$ and $V_{dd\delta}$ that represent different kinds of bonding $\sigma$, $\pi$ and $\delta$, respectively, shown by the tunnels between the two orbital states\footnotemark \label{fig:orbitals}}
 \end{figure}
 \footnotetext{http://epub.uni-regensburg.de/22863/4/PhDthesis.pdf}
 
 For arbitrary vector $\vec{R} - \vec{R'} $ the hopping $\langle l', m', \vec{R'} | \hat{H} | l,m,\vec{R} \rangle$ and overlap $\langle l', m', \vec{R'} | l,m,\vec{R} \rangle$ integrals are given by linear combinations of the SK parameters. 
 
-\begin{figure}[h]  \label{fig:sp}
+\begin{figure}[h]
   \includegraphics[width=\linewidth]{img/sp_bonding}
-  \caption[caption]{sp-bonding correspond to non-vanishing matrix elements.\footnotemark}
+  \caption[caption]{sp-bonding correspond to non-vanishing matrix elements. \footnotemark\label{fig:sp} }
 \end{figure}
 \footnotetext{http://sina.sharif.edu/~khorasani/Publications/Graphene.pdf}
-\begin{figure}[h]  \label{fig:sp_vanishing}
+\begin{figure}[h]  
   \includegraphics[width=\linewidth]{img/sp_vanishing}
-  \caption[caption]{sp-bonding correspond to vanishing matrix elements.\footnotemark}
+  \caption[caption]{sp-bonding correspond to vanishing matrix elements.\footnotemark \label{fig:sp_vanishing}}
 \end{figure}
 \footnotetext{http://sina.sharif.edu/~khorasani/Publications/Graphene.pdf}
 
@@ -151,6 +151,7 @@ $\langle d_{z^2} | \hat{H} | d_z^2 \rangle $ & $\frac{3}{4} (n_x^2 + n_y^2)^2 V_
 \end{table}
 
 \section{Spin-orbit interaction}
+\label{sec:soc_theory}
 Spin itself and it's coupling with orbital motion of the electrons are relativistic effects, which can be derived from Dirac equation. In the non-relativistic limit spin-orbit coupling (SOC) can be taken into account as an additional term in the Hamiltonian given by
 \begin{equation} \label{eq:soc0}
 	\hat{H}^{SO} = \frac{1}{2 m^2 c^2} (\vec{\nabla} \times \vec{p}) \cdot \vec{S},
@@ -218,7 +219,7 @@ orbital & $|s \rangle$ & $|p_x \rangle$ & $|p_y \rangle$ & $|p_z \rangle$ \\ \hl
 $\langle s|$ & 0 & 0 & 0 & 0 \\
 $\langle p_x|$ & 0 & 0 & $- i s_z$ & $i s_y$ \\
 $\langle p_y|$ & 0 & $i s_{z} $ & 0 & $- i s_{x} $ \\
-$\langle p_z|$ & 0 & $-i s_y$ & $i s_{x} $ & $s_z$ \\
+$\langle p_z|$ & 0 & $-i s_y$ & $i s_{x} $ & 0 \\
 \hline
 \end{tabularx}
 \newline

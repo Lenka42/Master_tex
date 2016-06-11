@@ -1,0 +1,86 @@
+\chapter{Code discussion}
+TB calculations, which results are presented in this work, are performed using package I wrote in Python programming language. Input should be also written, but as far as Python designed to be highly readable, even person who never programmed in Python before, can easily do this. 
+
+In this chapter I'll discuss an basic input example and what's going on when one runs it for calculating graphene band structure (Results of this input are presented in chapter \ref{subsec:graphene_result})
+
+\begin{python}
+from atom.model import Atom
+from system.model import System
+from plotter.plotter import Plotter
+
+from numpy import array, sqrt, pi
+
+d = 1.0
+system = System([d / 2. * array([3., sqrt(3), 0.]),
+                 - d / 2. * array([3, -sqrt(3), 0.])],
+                mode='with_overlap', name='grapene_sp')
+\end{python}
+ 
+At the beginning of the input file I do all the imports. First three are classes from the TightBinding package and the last is necessary functions from NumPy library. NumPy is a high-level package for efficient manipulating multi-dimensional arrays in Python. 
+
+The next line is defining a constant, which here means distance of $C-C$ bond in graphene.
+
+At the beginning of logical part I define \verb!System! object. The first argument for system object initiating is list of lattice vectors. Length of this list may be from $0$ to $3$. Next argument is mode, it can be either \verb!"standard"!, \verb!"with_overlap"! when overlap matrix is not identity matrix or \verb!"with_vectors"! when one also wants eigenstates to be calculated. Name of the system is used to create directory with outputs.
+
+\begin{python}
+system.atoms = [Atom('C', array([d, 0., 0.])),
+                Atom('C', array([2 * d, 0., 0.])), ]
+\end{python}
+
+Next I define list of atoms in the unit cell. Each atom has a name and a position.
+
+\begin{python}
+for i in xrange(len(system.atoms)):
+    system.atoms[i].orbitals = ['s', 'px', 'py', 'pz', ]
+\end{python}
+
+Here I assign to each atom in a system a set of orbitals. I do this in a loop, but one can also assign different sets of orbitals for every atom one by one.
+
+\begin{python}
+system.k_points = [array([0., 0., 0.]),
+                   array([2 * pi / 3 / d, 2 * pi / 3 / sqrt(3) / d, 0]),
+                   array([2 * pi / 3 / d, 0, 0]),
+                   array([0., 0., 0.])]
+system.make_k_mesh(100)
+\end{python}
+
+Thereafter one should define mesh of wave vector points. One can do this manually setting parameter \verb!system.k_mesh! or as above defining \verb!system.k_points! and calling method \verb!make_k_mesh!. In the snippet above I define a path of $\Gamma$, $K$, $M$ and again $\Gamma$ points and call the function \verb!make_k_mesh! to create a mesh with approximately $100$ points following the path defined in the previous line.
+
+\begin{python}
+system.parameters = {
+    'C': {
+        'es': -8.7,
+        'ep': 0.0,
+    },
+    'CC': {
+        'Vsss': - 6.7,
+        'Vsps': 5.5,
+        'Vpps': 5.1,
+        'Vppp': -3.1,
+    }
+}
+system.s_parameters = {
+    'C': {
+        'es': 1.,
+        'ep': 1.,
+    },
+    'CC': {
+        'Vsss': 0.2,
+        'Vsps': - 0.1,
+        'Vpps': - 0.15,
+        'Vppp': 0.12,
+    }
+}
+\end{python}
+
+Subsequently I define an intuitive set of parameters for my system.
+
+\begin{python}
+system.just_do_main_magic()
+plotter = Plotter(system.name)
+plotter.plot_energy_bands_from_file()
+\end{python}
+
+Finally, I call the function \verb!just_do_main_magic! which does the main logic of the TB calculations. After I plot the electronic structure (this step is highly optional, as far as the results are stored in the files).
+
+Here I will explain, what is hidden under the function \verb!just_do_main_magic!. First helper function, which searches for nearest neighbors of each atom is called. Then for every wave vector Hamiltonian (and overlap if needed) matrix is determined. After eigenvalue problem is solved. I used functions from SciPy package for diagonalization of Hermitian matrices.

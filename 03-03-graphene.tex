@@ -28,32 +28,85 @@ Of particular interest for physics of graphene are two points in reciprocal spac
 	K = (\frac{2 \pi}{3 a}, \frac{2 \pi}{3 \sqrt{3}}), \qquad K' = (\frac{2 \pi}{3 a}, -\frac{2 \pi}{3 \sqrt{3}})
 \end{equation}
 
-\begin{figure}[ht] \label{fig:graphene_lattice}
+\begin{figure}[ht]
 \begin{center}
   \includegraphics[width=0.55\linewidth]{img/graphene_lattice}
-  \caption{Left: lattice structure of graphene. Right: corresponding Brillouin zone.}
+  \caption{Left: lattice structure of graphene. Right: corresponding Brillouin zone \label{fig:graphene_lattice}}
 \end{center}
 \end{figure}
 
 \subsection{Calculation of $\pi$ bands}
 The easiest model one can use to describe electronic properties of graphene is TB model considering only $p_z$ orbitals for each carbon atom. All this orbitals are perpendicular to graphene plane and parallel to each other. They form $\pi$ bands. Band structure of graphene around the Fermi level is determined by the $\pi$ bands. 
 
-Here I will take into account only interaction between nearest neighbors. One can also assume, that orbitals at different atoms are orthogonal to each other.
+Here I will take into account only interaction between nearest neighbors. One I assume, that orbitals at different atoms are orthogonal to each other.
 
 So to determine graphene band structure one should solve eigenvalue problem, where Hamiltonian matrix dimension is $2 \times 2$. The energy bands derived from this Hamiltonian have the form \cite{wallace}
-\begin{equation}
+\begin{equation} \label{eq:dispersion}
 	E(\vec{k}) = \pm V_{pp\pi}\sqrt{3 + 2 \cos\left(\sqrt{3} k_y a\right) + 4 \cos\left(\frac{\sqrt{3}}{2} k_y a\right) \cos\left(\frac{3}{2} k_x a\right)} 
 \end{equation}
+Such model gives two energy bands, which are symmetric.
+
+Plot of graphene electronic structure obtained with my code and analytical function is shown on fig. \ref{fig:graphene_pz}
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[width=0.65\linewidth]{img/graphene_pz}
+  \caption{Calculated and analytical band structure of graphene ($p_z$ orbitals)) \label{fig:graphene_pz}}
+\end{center}
+\end{figure}
+
+\subsection{Non-zero overlap}
+\label{subsec:graphene_result}
+Approach discussed in previous chapter gives the result spectrum which is symmetric around zero energy (easy to see in eq. \ref{eq:dispersion}). The electron-hole symmetry could be broken using two approaches in TB model. First is including second-nearest neighbors (hopping between atoms of the same type in neighboring cells). And second is including non-trivial overlap matrix. Here I discuss the second method.
+In my calculations I took $s$, $p_x$, $p_y$ and $p_z$ for each carbon atom. Hopping and overlap parameters \cite{basics} are placed at the table \ref{tab:graphene_overlap_parameters}. Resulting band structure is presented on fig. \ref{fig:graphene_sp}. The agreement with results of first-principles calculations \cite{boukhvalov} (fig. \ref{fig:graphene_dft}) is quite good.
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{|c |c |c| c|}
+\hline
+Parameter&Value, [eV]&Parameter&Parameter\\ \hline
+$\epsilon_s$ &$- 8.7$ & &\\ \hline
+$\epsilon_p$&$0$ & &\\ \hline
+$V_{ss\sigma}$&$- 6.7$ & $S_{ss\sigma}$&$0.20$\\ \hline
+$V_{sp\sigma} $&$5.5$ & $S_{sp\sigma}$&$0.10$\\  \hline
+$V_{pp\sigma}$&$5.1$ & $S_{pp\sigma}$&$- 0.15$\\ \hline
+$V_{pp\pi}$&$- 3.1$ & $S_{pp\pi}$&$0.12$ \\ \hline  
+\end{tabular}
+\end{center}
+\caption{Graphene TB hopping and overlap parameters \cite{basics}}
+\label{tab:graphene_overlap_parameters}
+\end{table}
 
 \begin{figure}[h] 
 \begin{center}
-  \includegraphics[width=0.55\linewidth]{img/graphene_pd_soc}
-  \caption{Calculated Band structure of graphene ($p_3d_5$)).}
+  \includegraphics[width=0.8\linewidth]{img/graphene_sp}
+  \caption{Calculated Band structure of graphene ($s$, $p$ orbitals). Red lines are $\pi$ bands, black lines are $\sigma$ bands, gray lines are $\pi$ bands calculated for orthogonal $p_z$ orbitals. \label{fig:graphene_sp}}
 \end{center}
 \end{figure}
+
 \begin{figure}[h] 
 \begin{center}
-  \includegraphics[width=0.55\linewidth]{img/graphene_pd_soc3}
-  \caption{Calculated Band structure of graphene ($p_zd_{xz}d_{yz}$)).}
+  \includegraphics[width=0.6\linewidth]{img/graphene_dft}
+  \caption{Graphene band structure (DFT calculations). Solid red lines are $\sigma$ bands and dotted blue lines are $\pi$ bands. \cite{boukhvalov} \label{fig:graphene_dft}}
 \end{center}
 \end{figure}
+
+\subsection{Spin-orbit coupling in graphene}
+I included to the Hamiltonian SOC term, as described in chapter \ref{sec:soc_theory}. First I considered $\{ s, p_x, p_y, p_z \}$ set of orbitals. The SOC couples $p_x$ and $p_y$ orbitals. But SOC does not influence $\pi$ bands, so no splitting at the Dirac points appears $E_g = 0 eV$.
+
+It was proven, that to the spin-orbit splitting at $K$ point in graphene one has to consider $d$
+orbitals \cite{slonczewski}. Calculated graphene band structure for $\{p_z, d_{xy}, d_{yz}, d_{xz}, d_{x^2 - y^2}, d_{z^2} \}$ with set of parameters as in tab. \ref{tab:graphene_soc} is shown on fig. \ref{fig:graphene_soc}. 
+\begin{table}[h]
+ \begin{center}
+  \begin{tabular}{|c|c|}
+  \hline
+    Parameter&Value, [eV]\\ \hline
+    $\epsilon_p$ & $1.2057$ \\ \hline
+    $\epsilon_d$ & $24.1657$ \\ \hline
+    $V_{pp \pi}$ & $-3.2600$  \\ \hline
+    $V_{pd \pi}$ & $2.4000$\\ \hline
+    $V_{dd \pi}$ & $3.6000$ \\ \hline
+    $V_{dd \delta}$ &  $-7.4000$\\ \hline
+  \end{tabular}
+ \end{center}
+  \caption{Interaction parameters for diamond.}
+\end{table}
