@@ -84,3 +84,21 @@ plotter.plot_energy_bands_from_file()
 Finally, I call the function \verb!just_do_main_magic! which does the main logic of the TB calculations. After I plot the electronic structure (this step is highly optional, as far as the results are stored in the files).
 
 Here I will explain, what is hidden under the function \verb!just_do_main_magic!. First helper function, which searches for nearest neighbors of each atom is called. Then for every wave vector Hamiltonian (and overlap if needed) matrix is determined. After eigenvalue problem is solved. I used functions from SciPy package for diagonalization of Hermitian matrices.
+
+Also, after the main band structure calculation one may calculate density of states (DOS) or local density of states (LDOS) for any atom in the system or type of orbital.
+\begin{python}
+doser = DOSCalculator(system.dim, system.name, n)
+doser.f()
+\end{python}
+Here first line is creation of helper object for DOS calculation, first argument is periodicity of the system, and \verb!n! is name of the system and the last is number of points in energy domain, for which one wants to calculate density of states. The next line is call of the function, which calculates DOS, writes results to the file and plots it.
+
+One can calculate DOS in energy domain as follows: 
+\begin{equation}
+	\rho(E) = \int\limits_{BZ} d\vec{k} \sum\limits_i \delta(\epsilon_i(\vec{k}) - E),
+\end{equation}
+where integration is over Brillouin zone and summation goes over energy bands. But results of TB calculations, $\epsilon_i(\vec{k})$ is represented as a set of values for discrete set of k-vector points. So in my calculations I create an interpolated in whole Brillouin zone continuous function. And replace delta functional with narrow Gaussian function:
+\begin{equation}
+	\rho(E) = \int\limits_{BZ} d\vec{k} \sum\limits_i \frac{1}{a\sqrt{\pi}} \exp\left(\frac{(\epsilon_i(\vec{k}) - E)^2}{a^2}\right)
+\end{equation}
+I've found, that $a = \frac{\max(\epsilon(\vec{k})) - \min(\epsilon(\vec{k}))}{n}$ works quit good.
+
