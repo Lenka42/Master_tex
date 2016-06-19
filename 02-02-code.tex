@@ -1,7 +1,7 @@
 \chapter{Code discussion}
-TB calculations, which results are presented in this work, are performed using package I wrote in Python programming language. Input should be also written, but as far as Python designed to be highly readable, even person who never programmed in Python before, can easily do this. 
+TB calculations, which results are presented in this work, are performed using package I wrote in Python programming language. Input should be also written in Python, but as far as Python designed to be highly readable, even person who never programmed in Python before, can easily do this. And on the other hand this allows to simplify input data creation and further easy output rearrangement.
 
-In this chapter I'll discuss an basic input example and what's going on when one runs it for calculating graphene band structure (Results of this input are presented in chapter \ref{subsec:graphene_result})
+In this chapter I discuss the basic input example and what's going on when one runs it for calculating graphene band structure (Results of this input are presented in chapter \ref{subsec:graphene_result})
 
 \begin{python}
 from atom.model import Atom
@@ -14,13 +14,16 @@ d = 1.0
 system = System([d / 2. * array([3., sqrt(3), 0.]),
                  - d / 2. * array([3, -sqrt(3), 0.])],
                 mode='with_overlap', name='grapene_sp')
+system.spin_multiplier = 2
 \end{python}
  
 At the beginning of the input file I do all the imports. First three are classes from the TightBinding package and the last is necessary functions from NumPy library. NumPy is a high-level package for efficient manipulating multi-dimensional arrays in Python. 
 
-The next line is defining a constant, which here means distance of $C-C$ bond in graphene.
+The next line is defining a constant, which here represents length of $C-C$ bond in graphene.
 
-At the beginning of logical part I define \verb!System! object. The first argument for system object initiating is list of lattice vectors. Length of this list may be from $0$ to $3$. Next argument is mode, it can be either \verb!"standard"!, \verb!"with_overlap"! when overlap matrix is not identity matrix or \verb!"with_vectors"! when one also wants eigenstates to be calculated. Name of the system is used to create directory with outputs.
+At the beginning of logical part I define \verb!System! object. The first argument initiating the system object is list of lattice vectors. Length of this list may be from $0$ to $3$, depending on the periodicity of the system. Next argument is mode of calculation, it can be either \verb!"standard"!, \verb!"with_overlap"! when overlap matrix is not identity matrix or \verb!"with_vectors"! when one also wants eigenstates to be calculated. Name of the system is used to create directory with outputs.
+
+Parameter \verb!spin_mutiplier! is set to $1$ by default. By if one wants to include SOC part to the Hamiltonian, one should assign value $2$ to this parameter.
 
 \begin{python}
 system.atoms = [Atom('C', array([d, 0., 0.])),
@@ -73,7 +76,7 @@ system.s_parameters = {
 }
 \end{python}
 
-Subsequently I define an intuitive set of parameters for my system.
+Subsequently I define an intuitive set of parameters for my system. If parameter \verb!system.spin_multiplier! is $2$, parameter \verb!'lambda'! should be defined for each atom.
 
 \begin{python}
 system.just_do_main_magic()
@@ -81,9 +84,9 @@ plotter = Plotter(system.name)
 plotter.plot_energy_bands_from_file()
 \end{python}
 
-Finally, I call the function \verb!just_do_main_magic! which does the main logic of the TB calculations. After I plot the electronic structure (this step is highly optional, as far as the results are stored in the files).
+Finally, I call the function \verb!just_do_main_magic! which does the main logic of the TB calculations. First this method calls helper function, which searches for nearest neighbors of each atom is called. Then for every wave vector in $system.k_mesh$ Hamiltonian (and overlap if needed) matrix is calculated. After eigenvalue problem is solved. I used functions from SciPy package for diagonalization of Hermitian matrices.
 
-Here I will explain, what is hidden under the function \verb!just_do_main_magic!. First helper function, which searches for nearest neighbors of each atom is called. Then for every wave vector Hamiltonian (and overlap if needed) matrix is determined. After eigenvalue problem is solved. I used functions from SciPy package for diagonalization of Hermitian matrices.
+After I plot the electronic structure (this step is highly optional, as far as the results are stored in the files).
 
 Also, after the main band structure calculation one may calculate density of states (DOS) or local density of states (LDOS) for any atom in the system or type of orbital.
 \begin{python}
@@ -97,8 +100,16 @@ One can calculate DOS in energy domain as follows:
 	\rho(E) = \int\limits_{BZ} d\vec{k} \sum\limits_i \delta(\epsilon_i(\vec{k}) - E),
 \end{equation}
 where integration is over Brillouin zone and summation goes over energy bands. But results of TB calculations, $\epsilon_i(\vec{k})$ is represented as a set of values for discrete set of k-vector points. So in my calculations I create an interpolated in whole Brillouin zone continuous function. And replace delta functional with narrow Gaussian function:
-\begin{equation}
+\begin{equation}  \label{eq:dos}
 	\rho(E) = \int\limits_{BZ} d\vec{k} \sum\limits_i \frac{1}{a\sqrt{\pi}} \exp\left(\frac{(\epsilon_i(\vec{k}) - E)^2}{a^2}\right)
 \end{equation}
-I've found, that $a = \frac{\max(\epsilon(\vec{k})) - \min(\epsilon(\vec{k}))}{n}$ works quit good.
+I've found out, that $a = \frac{\max(\epsilon(\vec{k})) - \min(\epsilon(\vec{k}))}{n}$ works quit good.
 
+To calculate LDOS:
+\begin{python}
+lst = system.find_indeces_for_ldos(orbital='d')
+doser = LDOSCalculator(system.dim, system.name, n, localization_name, indeces_list=lst)
+doser.f()
+\end{python}
+
+To be able co calculate LDOS one should first do the main TB calculations for the system in \verb!mode='with_vectors'!. First one should run helper function \verb!find_indeces_for_ldos! with keyword-argument \verb!orbital! or \verb!atom!. This function searches for all orbitals of certain type or on defined atom in the system. The calculation of LDOS is similar to previously described DOS calculations. But statement in equation \ref{eq:dos} is multiplied by factor calculated from eigenstates of the system.

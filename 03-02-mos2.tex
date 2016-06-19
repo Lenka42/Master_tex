@@ -1,50 +1,25 @@
 \chapter{Molybdenum disulfide (monolayer)}
-In my TB model I adopted a non-orthogonal basis set of $sp_3 d_5$ orbitals considering only the nearest neighbour interactions between following pairs of atoms: $Mo - S$, $Mo-Mo$, $S-S$.
-\begin{minipage}{\linewidth}
-\begin{verbatim}
-{0: [(1, array([ 0.        ,  1.80133284,  1.555     ])), 
-     (2, array([ 0.        ,  1.80133284, -1.555     ])), 
-     (0, array([-1.56      , -2.70199926,  0.        ])), 
-     (1, array([-1.56      , -0.90066642,  1.555     ])), 
-     (2, array([-1.56      , -0.90066642, -1.555     ])), 
-     (0, array([-3.12,  0.  ,  0.  ])), 
-     (0, array([ 1.56      , -2.70199926,  0.        ])), 
-     (1, array([ 1.56      , -0.90066642,  1.555     ])), 
-     (2, array([ 1.56      , -0.90066642, -1.555     ])), 
-     (0, array([-1.56      ,  2.70199926,  0.        ])), 
-     (0, array([ 3.12,  0.  ,  0.  ])), 
-     (0, array([ 1.56      ,  2.70199926,  0.        ]))], 
- 1: [(0, array([ 0.        , -1.80133284, -1.555     ])), 
-     (2, array([ 0.  ,  0.  , -3.11])), 
-     (1, array([-1.56      , -2.70199926,  0.        ])), 
-     (1, array([-3.12,  0.  ,  0.  ])), 
-     (1, array([ 1.56      , -2.70199926,  0.        ])), 
-     (0, array([-1.56      ,  0.90066642, -1.555     ])), 
-     (1, array([-1.56      ,  2.70199926,  0.        ])), 
-     (1, array([  3.12000000e+00,  -4.44089210e-16,   0.00000000e+00])), 
-     (0, array([ 1.56      ,  0.90066642, -1.555     ])), 
-     (1, array([ 1.56      ,  2.70199926,  0.        ]))],
- 2: [(0, array([ 0.        , -1.80133284,  1.555     ])), 
-     (1, array([ 0.  ,  0.  ,  3.11])), 
-     (2, array([-1.56      , -2.70199926,  0.        ])), 
-     (2, array([-3.12,  0.  ,  0.  ])), 
-     (2, array([ 1.56      , -2.70199926,  0.        ])), 
-     (0, array([-1.56      ,  0.90066642,  1.555     ])), 
-     (2, array([-1.56      ,  2.70199926,  0.        ])), 
-     (2, array([  3.12000000e+00,  -4.44089210e-16,   0.00000000e+00])), 
-     (0, array([ 1.56      ,  0.90066642,  1.555     ])), 
-     (2, array([ 1.56      ,  2.70199926,  0.        ]))]})
-\end{verbatim}
-\end{minipage}
-\begin{figure} 
+In my TB model I adopted a non-orthogonal basis set of $sp_3 d_5$ orbitals considering only the nearest neighbor interactions between following pairs of atoms: $Mo - S$, $Mo-Mo$, $S-S$.
+\begin{figure}[ht]
 \begin{center}
-  \includegraphics[width=\linewidth]{img/mos2_mono_soc_S}
-  \caption{Calculated band structure of $MoS_2$.}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{img/mos2_all}
+  \label{fig:mos2_all}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{img/mos2_zoom}
+  \label{fig:mos2_zoom}
+\end{subfigure}
+  \caption{Calculated band structure of $MoS_2$. On the right -- zoom in the surrounding of Fermi level.}
 \end{center}
 \end{figure}  
-\begin{figure} 
+
+
+\begin{figure}[ht]
 \begin{center}
-  \includegraphics[width=0.5\linewidth]{img/MoS2_lit_band_struc}
+  \includegraphics[width=0.3\linewidth]{img/MoS2_lit_band_struc}
   \caption{Band structure of $MoS_2$ (literature)).}
 \end{center}
 \end{figure}  
