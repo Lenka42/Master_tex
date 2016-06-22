@@ -133,6 +133,7 @@
 \def\@opiekun{???\ClassError{pracamgr}{Brak danych opiekuna pracy}\@ehc}
 \def\keywords#1{\gdef\@keywords{#1}}
 \def\@keywords{???\ClassError{pracamgr}{Brak slow kluczowych}\@ehc}
+\def\keywordsPL#1{\gdef\@keywordsPL{#1}}
 \def\dziedzina#1{\gdef\@dziedzina{#1}}
 \def\@dziedzina{???\ClassError{pracamgr}{Brak dziedziny Socrates-Erasmus}\@ehc}
 \def\klasyfikacja#1{\gdef\@klasyfikacja{#1}}
@@ -157,6 +158,12 @@
     \@endparpenalty\@M
   \end{center}
   \@keywords\par
+  \vspace*{26pt}%
+  \begin{center}%
+    \bfseries\large S{\l}owa kluczowe
+    \@endparpenalty\@M
+  \end{center}
+  \@keywordsPL\par
   \vspace*{26pt}%
   \begin{center}%
     \bfseries\large Area of study (codes according to Erasmus Subject Area Codes List)
