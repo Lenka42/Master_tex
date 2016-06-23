@@ -19,11 +19,11 @@ system.spin_multiplier = 2
  
 At the beginning of the input file I do all the imports. First three are classes from the TightBinding package and the last is necessary functions from NumPy library. NumPy is a high-level package for efficient manipulating multi-dimensional arrays in Python. 
 
-The next line is defining a constant, which here represents length of $C-C$ bond in graphene.
+The next line defines a constant, which here represents length of $C-C$ bond in graphene.
 
-At the beginning of logical part I define \verb!System! object. The first argument initiating the system object is list of lattice vectors. Length of this list may be from $0$ to $3$, depending on the periodicity of the system. Next argument is mode of calculation, it can be either \verb!"standard"!, \verb!"with_overlap"! when overlap matrix is not identity matrix or \verb!"with_vectors"! when one also wants eigenstates to be calculated. Name of the system is used to create directory with outputs.
+At the beginning of logical part I define \verb!System! object. The first argument initializing the system object is list of lattice vectors. Length of this list may be from $0$ to $3$, depending on the periodicity of the system. Next argument is mode of calculation, it can be either \verb!"standard"!, \verb!"with_overlap"! when overlap matrix is not identity matrix or \verb!"with_vectors"! when one also wants eigenstates to be calculated. Name of the system is used to create directory with outputs.
 
-Parameter \verb!spin_mutiplier! is set to $1$ by default. By if one wants to include SOC part to the Hamiltonian, one should assign value $2$ to this parameter.
+Parameter \verb!spin_mutiplier! is set to $1$ by default. But if one wants to include SOC part to the Hamiltonian, one should assign value $2$ to this parameter.
 
 \begin{python}
 system.atoms = [Atom('C', array([d, 0., 0.])),
@@ -37,7 +37,7 @@ for i in xrange(len(system.atoms)):
     system.atoms[i].orbitals = ['s', 'px', 'py', 'pz', ]
 \end{python}
 
-Here I assign to each atom in a system a set of orbitals. I do this in a loop, but one can also assign different sets of orbitals for every atom one by one.
+Here I assign set of orbitals to each atom in a system. I do this in a loop, but one can also assign different sets of orbitals for every atom one by one.
 
 \begin{python}
 system.k_points = [array([0., 0., 0.]),

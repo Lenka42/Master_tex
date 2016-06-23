@@ -58,13 +58,13 @@ Matrix elements in \ref{eq:h_matrix} and \ref{eq:s_matrix} where $\vec{R} = \vec
 
 In general case, atomic orbitals centered on different sites are not orthogonal and the corresponding overlap parameters have small but finite values.But often orthogonal basis of orbitals is used, so that overlap matrix becomes identity matrix and energies are eigenvalues of the Hamiltonian matrix. In the following sections I will discuss both approaches. 
 
-The next approximation is to consider a finite as small as necessary number of orbitals per atom. The number of solutions of the secular equation in \ref{eq:secular} is equal to dimension of the Hamiltonian matrix: 
+The next approximation is to consider as small as necessary number of orbitals per atom. The number of solutions of the secular equation in \ref{eq:secular} is equal to dimension of the Hamiltonian matrix: 
 \begin{equation}
 dim = g \times \sum_j n_j
 \end{equation}
 Here $g$ is spin factor ($1$ or $2$), summation goes through all atoms in unit cell and $n_j$ is number of orbitals on atom $j$ taken into account.
 
-In the final nearest neighbors approximation (NNA) only the Hamiltonian and overlap matrix elements between orbitals at the nearest neighbors atoms are calculated. The rest of the matrices elements are set to zero.
+In the final nearest neighbors approximation (NNA) only the Hamiltonian and overlap matrix elements between orbitals at the nearest neighbors atoms are calculated. The rest of the matrices elements are zeros.
 
 \section{Vanishing and non-vanishing orbital interactions based on TB model}
 To solve the eigenvalue problem (eq. \ref{eq:secular}) one needs to calculate Hamiltonian and overlap matrices elements between atomic orbitals at different locations. I start with the so-called rotating atomic orbitals $\phi_{lm}$ which are characterized by the angular momentum $l = {s, p, d, ...}$ and the magnetic quantum number $m$. Due to the spherical symmetry of the atomic potential the orbital function may be separated in the radial part and angular part:
@@ -75,7 +75,7 @@ The angular part is described by spherical harmonics:
 \begin{equation}
 	Y_{l,m}(\theta, \phi) = (-1)^m \sqrt{\frac{(2l + 1)(l-m)!}{4 \pi (l+m)!}} P_l^m(\cos{\theta})\me^{i m \phi}
 \end{equation}
-The hopping and overlap integrals between the atomic orbitals, which are localized on the atoms at the positions $\vec{R}$ and $\vec{R'}$ are called Slater-Koster (SK) parameters \cite{slatter} when the relative vector $\vec{R}-\vec{R'}$ is parallel to the quantization axes of the orbitals $\phi_{l,m}(\vec{r} - \vec{R}) = \langle \vec{r} | l, m, \vec{R} \rangle$: 
+The hopping and overlap integrals between the atomic orbitals, which are localized on the atoms at the positions $\vec{R}$ and $\vec{R'}$, are called Slater-Koster (SK) parameters \cite{slatter} when the relative vector $\vec{R}-\vec{R'}$ is parallel to the quantization axes of the orbitals $\phi_{l,m}(\vec{r} - \vec{R}) = \langle \vec{r} | l, m, \vec{R} \rangle$: 
 \begin{equation}
 	V_{ll'|m|} = \delta_{mm'}\langle l', m', \vec{R'} | \hat{H} | l, m , \vec{R} \rangle, 
 \end{equation}
@@ -102,7 +102,7 @@ For arbitrary vector $\vec{R} - \vec{R'} $ the hopping $\langle l', m', \vec{R'}
 \end{figure}
 \footnotetext{http://sina.sharif.edu/~khorasani/Publications/Graphene.pdf}
 
-To reduce the number of the corresponding hopping and overlap parameters one can use the symmetries of the atomic orbitals with respect to relative vector, connecting the orbitals. For example, in case when bonding includes $s$ and $p$ orbitals, there are only four non-zero overlapping integrals, as shown schematically on fig. \ref{fig:sp}. The remaining cases like those shown on fig. \ref{fig:sp_vanishing} correspond to the matrix elements which vanish because of symmetry constraints. In general case the $p$ orbitals are not just parallel or lie on the line that joins the atomic positions. We can always project each $p$ orbital into two components, one of them along the bonding line, the other one perpendicular to it. 
+To reduce the number of the corresponding hopping and overlap parameters one can use the symmetries of the atomic orbitals with respect to relative vector, connecting the orbitals. For example, in case when bonding includes $s$ and $p$ orbitals, there are only four non-zero overlapping integrals, as shown schematically on fig. \ref{fig:sp}. The remaining cases like those shown on fig. \ref{fig:sp_vanishing} correspond to the matrix elements which vanish because of symmetry constraints. In general case the $p$ orbitals are not just parallel. We can always project each $p$ orbital into two components, one of them along the bonding line, the other one perpendicular to it. 
 
 The general form of hopping integrals withing the $s$, $p$ and $d$ orbitals is presented in table \ref{tab:hopping_integrals}. In this table $n_x$, $n_y$ and $n_z$ are Cartesian components of unit vector, connecting two orbitals:
 \begin{equation}
@@ -113,7 +113,7 @@ which are related to Euler angles as follows:
 	n_x =\cos{\alpha} \sin{\beta}, n_y = \sin{\alpha} \sin{\beta}, n_z = \cos{\beta}. 
 \end{equation}
 
-The overlap of two displaced directed orbitals has exactly the same structure, where the SK hopping parameters $V_{l l' |m|}$ have to be replaced by the overlap parameters $S_{l l' |m|}$. Using the hopping parameters in table \ref{tab:hopping_integrals} one is able to construct the multi-orbital TB Hamiltonian to model the band structure of desired material.
+The overlap of two displaced directed orbitals has exactly the same structure. One should simply replace the SK hopping parameters $V_{l l' |m|}$ by the overlap parameters $S_{l l' |m|}$. Using relations in table \ref{tab:hopping_integrals} one is able to construct the multi-orbital TB Hamiltonian to model the band structure of desired material.
 
 \begin{table}[ht]
 \begin{center}
