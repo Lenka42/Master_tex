@@ -1,5 +1,5 @@
 \chapter{Code discussion}
-TB calculations, which results are presented in this work, are performed using package I wrote in Python programming language. Input should be also written in Python, but as far as Python designed to be highly readable, even person who never programmed in Python before, can easily do this. And on the other hand this allows to simplify input data creation and further easy output rearrangement.
+TB calculations, which results are presented in this work, are performed using package I wrote in Python programming language. Input should be also written in Python, but as far as Python is designed to be highly readable, even person who never programmed in Python before, can easily do this. And on the other hand this allows to simplify input data creation and further easy output rearrangement.
 
 In this chapter I discuss the basic input example and what's going on when one runs it for calculating graphene band structure (Results of this input are presented in chapter \ref{subsec:graphene_result})
 
@@ -47,7 +47,7 @@ system.k_points = [array([0., 0., 0.]),
 system.make_k_mesh(100)
 \end{python}
 
-Thereafter one should define mesh of wave vector points. One can do this manually setting parameter \verb!system.k_mesh! or as above defining \verb!system.k_points! and calling method \verb!make_k_mesh!. In the snippet above I define a path of $\Gamma$, $K$, $M$ and again $\Gamma$ points and call the function \verb!make_k_mesh! to create a mesh with approximately $100$ points following the path defined in the previous line.
+Thereafter one should define mesh of wave vector points. One can do this manually setting parameter \verb!system.k_mesh! or as above defining \verb!system.k_points! and calling method \verb!make_k_mesh!. In the snippet above I define a path of $\Gamma$, K, M and again $\Gamma$ points and call the function \verb!make_k_mesh! to create a mesh with approximately $100$ points following the path defined in the previous line.
 
 \begin{python}
 system.parameters = {
@@ -84,7 +84,7 @@ plotter = Plotter(system.name)
 plotter.plot_energy_bands_from_file()
 \end{python}
 
-Finally, I call the function \verb!just_do_main_magic! which does the main logic of the TB calculations. First this method calls helper function, which searches for nearest neighbors of each atom is called. Then for every wave vector in $system.k_mesh$ Hamiltonian (and overlap if needed) matrix is calculated. After eigenvalue problem is solved. I used functions from SciPy package for diagonalization of Hermitian matrices.
+Finally, I call the function \verb!just_do_main_magic! which does the main logic of the TB calculations. First this method calls helper function, which searches for nearest neighbors of each atom. Then for every wave vector in $system.k_mesh$ Hamiltonian (and overlap if needed) matrix is calculated. After eigenvalue problem is solved. I used functions from SciPy package for diagonalization of Hermitian matrices.
 
 After I plot the electronic structure (this step is highly optional, as far as the results are stored in the files).
 
@@ -95,15 +95,6 @@ doser.f()
 \end{python}
 Here first line is creation of helper object for DOS calculation, first argument is periodicity of the system, and \verb!n! is name of the system and the last is number of points in energy domain, for which one wants to calculate density of states. The next line is call of the function, which calculates DOS, writes results to the file and plots it.
 
-One can calculate DOS in energy domain as follows: 
-\begin{equation}
-	\rho(E) = \int\limits_{BZ} d\vec{k} \sum\limits_i \delta(\epsilon_i(\vec{k}) - E),
-\end{equation}
-where integration is over Brillouin zone and summation goes over energy bands. But results of TB calculations, $\epsilon_i(\vec{k})$ is represented as a set of values for discrete set of k-vector points. So in my calculations I create an interpolated in whole Brillouin zone continuous function. And replace delta functional with narrow Gaussian function:
-\begin{equation}  \label{eq:dos}
-	\rho(E) = \int\limits_{BZ} d\vec{k} \sum\limits_i \frac{1}{a\sqrt{\pi}} \exp\left(\frac{(\epsilon_i(\vec{k}) - E)^2}{a^2}\right)
-\end{equation}
-I've found out, that $a = \frac{\max(\epsilon(\vec{k})) - \min(\epsilon(\vec{k}))}{n}$ works quit good.
 
 To calculate LDOS:
 \begin{python}
@@ -112,4 +103,6 @@ doser = LDOSCalculator(system.dim, system.name, n, localization_name, indeces_li
 doser.f()
 \end{python}
 
-To be able co calculate LDOS one should first do the main TB calculations for the system in \verb!mode='with_vectors'!. First one should run helper function \verb!find_indeces_for_ldos! with keyword-argument \verb!orbital! or \verb!atom!. This function searches for all orbitals of certain type or on defined atom in the system. The calculation of LDOS is similar to previously described DOS calculations. But statement in equation \ref{eq:dos} is multiplied by factor calculated from eigenstates of the system.
+To be able co calculate LDOS one should first do the main TB calculations for the system in \verb!mode='with_vectors'!. First one should run helper function \verb!find_indeces_for_ldos! with keyword-argument \verb!orbital! or \verb!atom!. This function searches for all orbitals of certain type or on defined atom in the system. 
+
+DOS and LDOS are calculated as described in \ref{ch:theory}. Interpolation of energy bands functions and integration are done with built-in SciPy methods.

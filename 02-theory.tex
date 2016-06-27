@@ -3,13 +3,13 @@
 \section{Introduction to the tight-binding model} \label{sec:TB_theory}
 Tight-binding method is developed to describe band structure of various materials, where electrons are localized at the atomic positions (tight-bonded to the atoms). 
 
-Hear I provide short sketch of secular equation derivation.
+Hear I provide short sketch of TB model secular equation derivation.
 
 The most essential approximation in TB model is the so-called two-center approximation, where Hamiltonian is approximated by the atomic Hamiltonian centered on the atomic positions in the unit cell $\vec{R}$ and only two-centered integrals are considered.
 
 Crystalline solids have translational symmetry along the directions of lattice vectors $\vec{a_i}$. This may be a set of three to zero vectors, depending on the periodicity of the system. Translational symmetry enforces solids' wave functions to satisfy Bloch's theorem:
 \begin{equation} \label{eq:blochs_theorem}
-	\hat{T}_i \psi(\vec{k},\vec{r}) = \me^{i \vec{k} \cdot \vec{a_i}} \psi(\vec{k}\vec{r}),
+	\hat{T}_i \psi(\vec{k},\vec{r}) = \me^{i \vec{k} \cdot \vec{a_i}} \psi(\vec{k},\vec{r}),
 \end{equation}
 where $\hat{T}_i$ is the translational operator by the lattice vector $\vec{a_i}$ and $\vec{k}$ is the Bloch wave vector \cite{kittel}.
 
@@ -54,7 +54,7 @@ or in the matrix form:
 	(\overline{\overline{H}} - E_i(\vec{k})\overline{\overline{S}})\overline{C_i}(\vec{k}) = 0
 \end{equation}
 
-Matrix elements in \ref{eq:h_matrix} and \ref{eq:s_matrix} where $\vec{R} = \vec{R'}$ are called on-site elements, and for $\vec{R} \neq \vec{R'}$ they are called hopping and overlap parameters respectively. Usually integration results are taken as parameters, which are fitted to reproduce certain solid's properties or the band structure calculated by first-principle approach. 
+Matrix elements in \ref{eq:h_matrix} and \ref{eq:s_matrix} where $\vec{R} = \vec{R'}$ are called on-site elements, and in case of $\vec{R} \neq \vec{R'}$ they are called hopping and overlap parameters respectively. Usually integration results are taken as parameters, which are fitted to reproduce certain solid's properties or the band structure calculated by first-principle approach. 
 
 In general case, atomic orbitals centered on different sites are not orthogonal and the corresponding overlap parameters have small but finite values.But often orthogonal basis of orbitals is used, so that overlap matrix becomes identity matrix and energies are eigenvalues of the Hamiltonian matrix. In the following sections I will discuss both approaches. 
 
@@ -75,7 +75,7 @@ The angular part is described by spherical harmonics:
 \begin{equation}
 	Y_{l,m}(\theta, \phi) = (-1)^m \sqrt{\frac{(2l + 1)(l-m)!}{4 \pi (l+m)!}} P_l^m(\cos{\theta})\me^{i m \phi}
 \end{equation}
-The hopping and overlap integrals between the atomic orbitals, which are localized on the atoms at the positions $\vec{R}$ and $\vec{R'}$, are called Slater-Koster (SK) parameters \cite{slatter} when the relative vector $\vec{R}-\vec{R'}$ is parallel to the quantization axes of the orbitals $\phi_{l,m}(\vec{r} - \vec{R}) = \langle \vec{r} | l, m, \vec{R} \rangle$: 
+The hopping and overlap integrals between the atomic orbitals, which are localized on the atoms at the positions $\vec{R}$ and $\vec{R'}$, are called Slater-Koster (SK) parameters\cite{slatter} when the relative vector $\vec{R}-\vec{R'}$ is parallel to the quantization axes of the orbitals $\phi_{l,m}(\vec{r} - \vec{R}) = \langle \vec{r} | l, m, \vec{R} \rangle$: 
 \begin{equation}
 	V_{ll'|m|} = \delta_{mm'}\langle l', m', \vec{R'} | \hat{H} | l, m , \vec{R} \rangle, 
 \end{equation}
@@ -102,9 +102,9 @@ For arbitrary vector $\vec{R} - \vec{R'} $ the hopping $\langle l', m', \vec{R'}
 \end{figure}
 \footnotetext{http://sina.sharif.edu/~khorasani/Publications/Graphene.pdf}
 
-To reduce the number of the corresponding hopping and overlap parameters one can use the symmetries of the atomic orbitals with respect to relative vector, connecting the orbitals. For example, in case when bonding includes $s$ and $p$ orbitals, there are only four non-zero overlapping integrals, as shown schematically on fig. \ref{fig:sp}. The remaining cases like those shown on fig. \ref{fig:sp_vanishing} correspond to the matrix elements which vanish because of symmetry constraints. In general case the $p$ orbitals are not just parallel. We can always project each $p$ orbital into two components, one of them along the bonding line, the other one perpendicular to it. 
+To reduce the number of the corresponding hopping and overlap parameters one can use the symmetries of the atomic orbitals with respect to relative vector, connecting the orbitals. For example, in case when bonding includes $s$ and $p$ orbitals, there are only four non-zero overlapping integrals, as shown schematically on fig. \ref{fig:sp}. The remaining cases like those shown on fig. \ref{fig:sp_vanishing} correspond to the matrix elements which vanish because of symmetry constraints. 
 
-The general form of hopping integrals withing the $s$, $p$ and $d$ orbitals is presented in table \ref{tab:hopping_integrals}. In this table $n_x$, $n_y$ and $n_z$ are Cartesian components of unit vector, connecting two orbitals:
+In general case the $p$ orbitals are not just parallel. We can always project each $p$ orbital into two components, one of them along the bonding line, the other one perpendicular to it. The general form of hopping integrals withing the $s$, $p$ and $d$ orbitals is presented in table \ref{tab:hopping_integrals}. In this table $n_x$, $n_y$ and $n_z$ are Cartesian components of unit vector, connecting two orbitals:
 \begin{equation}
 	\vec{n} = \frac{\vec{R} - \vec{R'}}{|\vec{R} - \vec{R'}|},
 \end{equation}
@@ -242,3 +242,19 @@ $\langle d_{z^2}|$ & 0 & 0 & - $i \sqrt{3} s_y$ & $i \sqrt{3} s_{x} $ & $0$\\
 \caption{Matrix elements of the SOC operator $\vec{L} \cdot \vec{s}$ in the basis of directed orbitals.}
 \label{tab:soc2}
 \end{table}
+
+\newpage
+\section{Density of states}
+One can calculate DOS in energy domain as follows: 
+\begin{equation}
+	\rho(E) = \int\limits_{BZ} d\vec{k} \sum\limits_i \delta(\epsilon_i(\vec{k}) - E),
+\end{equation}
+where integration is over Brillouin zone and summation goes over energy bands. But results of TB calculations, $\epsilon_i(\vec{k})$ is represented as a set of values for discrete set of k-vector points. So in my calculations I create an interpolated in whole Brillouin zone continuous function. And replace delta functional with narrow Gaussian function:
+\begin{equation}  \label{eq:dos}
+	\rho(E) = \int\limits_{BZ} d\vec{k} \sum\limits_i \frac{1}{a\sqrt{\pi}} \exp\left(\frac{(\epsilon_i(\vec{k}) - E)^2}{a^2}\right)
+\end{equation}
+I've found out, that $a = \frac{\max(\epsilon(\vec{k})) - \min(\epsilon(\vec{k}))}{n}$ works quit good (where $n$ is number of points in energy domain, for which one wants to calculate DOS).
+
+Such numerical broadening of energy levels is legal, because in reality broadening appears due to thermal effects. \cite{temperature}.
+
+The calculation of LDOS is similar to previously described DOS calculations. But statement in equation \ref{eq:dos} is multiplied by factor calculated from eigenstates of the system.
